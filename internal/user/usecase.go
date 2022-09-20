@@ -90,7 +90,7 @@ func (uu UserUsecase) Login(c *gin.Context) {
 	}
 
 	var user domain.User
-	err = us.db.Where("email = ?", currentUser.Email).Take(&user).Error
+	err = uu.db.Where("email = ?", currentUser.Email).Take(&user).Error
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": "invalid email/password",

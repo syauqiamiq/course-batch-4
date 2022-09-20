@@ -2,6 +2,7 @@ package exercise
 
 import (
 	"course/internal/domain"
+	"course/internal/dto"
 	"strconv"
 	"strings"
 	"sync"
@@ -38,7 +39,8 @@ func (eu ExerciseUsecase) GetExercise(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(200, exercise)
+	response := dto.CreateExerciseResponse(exercise)
+	c.JSON(200, response)
 }
 
 func (eu ExerciseUsecase) GetScore(c *gin.Context) {
