@@ -19,8 +19,11 @@ func main() {
 	db := database.CreateConn()
 	exercise := exercise.NewExerciseUsecase(db)
 	// exercise endpoint
+	r.POST("/exercises", middleware.WithAuth(), exercise.CreateNewExercise)
 	r.GET("/exercises/:id", middleware.WithAuth(), exercise.GetExercise)
 	r.GET("/exercises/:id/scores", middleware.WithLog(), middleware.WithAuth(), exercise.GetScore)
+	r.POST("/exercises/:id/questions", middleware.WithAuth(), exercise.CreateNewQuestion)
+	r.POST("/exercises/:id/questions/:questionId/answer", middleware.WithAuth(), exercise.CreateNewAnswer)
 
 	// user endpoint
 	userUsecase := user.NewUserUsecase(db)
